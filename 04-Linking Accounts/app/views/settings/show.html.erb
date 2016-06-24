@@ -1,28 +1,48 @@
+<section class="jumbotron">
+  <h2>
+    <a class="jumbo-thumbnail" href="/"><img class="img-circle" src="<%= @user[:info][:image] %>"/></a>
+  </h2>
+  <h1>Settings for <%= @user[:info][:name] %></h1>
+</section>
 <div class="container">
-  <h2 class="text-input">Link/Unlink Account</h2>
-  <div class="row">
-    <%= form_tag do %>
-      <form class="form-inline">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Link Accounts</div>
+    <div class="panel-body">
+    <%= form_tag({ action: 'link_provider' },{ class: 'form-horizontal col-xs-10 col-xs-offset-1' }) do %>
         <div class="form-group">
-        <%= label_tag(:q, "Link Provider:") %>
-        <%= select_tag(:link_provider, options_for_select(@providers)) %>
+          <label class="col-xs-3 control-label">Provider</label>
+          <div class="col-xs-9">
+            <%= select_tag(:link_provider, options_for_select(@providers), class: 'form-control') %>
+          </div>
         </div>
         <div class="form-group">
-          <%= submit_tag("Submit") %>
+          <div class="col-xs-offset-3 col-xs-9">
+            <!-- <%= submit_tag('Link', class: 'btn btn-primary') %> -->
+            <!--  TODO: selected from select_tag-->
+            <a class="btn btn-success btn-lg" onclick="linkPasswordAccount()">Login</a>
+
+          </div>
         </div>
       <% end %>
     </div>
-
-    <div class="col-md-6">
-      <form class="form-inline">
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Unlink Accounts</div>
+    <div class="panel-body">
+    <%= form_tag({ action: 'unlink_provider' },{ class: 'form-horizontal col-xs-10 col-xs-offset-1' }) do %>
         <div class="form-group">
-          <label for="">Unlink Provider: </label>
-        
+          <label class="col-xs-3 control-label">Provider</label>
+          <div class="col-xs-9">
+            <%= select_tag(:link_provider, options_for_select(@providers), class: 'form-control') %>
+          </div>
         </div>
         <div class="form-group">
-          <input type="submit" value="Submit" class="btn btn-warning">
+          <div class="col-xs-offset-3 col-xs-9">
+            <%= submit_tag('Unlink', class: 'btn btn-primary') %>
+          </div>
         </div>
-      </form>
+      <% end %>
     </div>
   </div>
 </div>

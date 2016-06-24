@@ -23,3 +23,7 @@
     top: 53%;
     max-width: 40%;
 }
+
+.jumbo-thumbnail img.img-circle {
+    max-width: 100%;
+}

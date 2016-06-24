@@ -8,3 +8,20 @@ function signin() {
 	  	}
 	});
 }
+
+function linkPasswordAccount(connection){
+    var opts = {
+			callbackURL: '<%= Rails.application.secrets.auth0_callback_url %>',
+      rememberLastLogin: false,
+      dict: {
+        signin: {
+          title: 'Link another account'
+        }
+      }
+    };
+    if (connection){
+      opts.connections = [connection];
+    }
+    //open lock in signin mode, with the customized options for linking
+    lock.showSignin(opts);
+  }
