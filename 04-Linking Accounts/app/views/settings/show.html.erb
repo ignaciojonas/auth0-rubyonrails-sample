@@ -1,0 +1,28 @@
+<div class="container">
+  <h2 class="text-input">Link/Unlink Account</h2>
+  <div class="row">
+    <%= form_tag do %>
+      <form class="form-inline">
+        <div class="form-group">
+        <%= label_tag(:q, "Link Provider:") %>
+        <%= select_tag(:link_provider, options_for_select(@providers)) %>
+        </div>
+        <div class="form-group">
+          <%= submit_tag("Submit") %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="">Unlink Provider: </label>
+        
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Submit" class="btn btn-warning">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

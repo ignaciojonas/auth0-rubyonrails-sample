@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RubyOnRails Auth0 Sample</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= yield :cdn_code %>
+  <%= stylesheet_link_tag    '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' %>
+  <%= stylesheet_link_tag    '//cdn.auth0.com/styleguide/4.7.2/index.min.css' %>
+  <%= stylesheet_link_tag    '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag '//cdn.auth0.com/js/lock-9.2.1.min.js' %>
+  <%= javascript_include_tag '//use.typekit.net/iws6ohy.js' %>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Auth0</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#/">Home</a></li>
+              <li><a href="#/settings">Settings</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+<%= yield %>
+
+</body>
+</html>
