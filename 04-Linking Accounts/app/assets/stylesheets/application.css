@@ -15,15 +15,11 @@
  */
 
 .jumbo-thumbnail {
-    height: 100px;
-    width: 100px;
+    height: 200px;
+    width: 200px;
 }
 
 .jumbo-thumbnail img {
     top: 53%;
     max-width: 40%;
-}
-
-.jumbo-thumbnail img.img-circle {
-    max-width: 100%;
 }
