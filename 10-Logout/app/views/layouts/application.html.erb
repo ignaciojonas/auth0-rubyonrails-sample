@@ -31,6 +31,9 @@
             <li class="<%= 'active' if params[:controller] == 'home' %>"><a href="/">Home</a></li>
             <li class="<%= 'active' if params[:controller] == 'dashboard' %>"><a href="/dashboard">My Dashboard</a></li>
           </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <li class="<%= 'active' if params[:controller] == 'logout' %>"><a href="/logout">Logout</a></li>
+          </ul>
         </div>
       </div>
     </nav>
