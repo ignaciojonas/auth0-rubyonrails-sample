@@ -3,12 +3,6 @@ class SettingsController < SecuredController
   def show
     @user = session[:userinfo]
     @providers = user_providers.keys.collect { |x| [x, x] }
-    # [
-    #       ['Facebook','facebook'],
-    #       ['Github','github'],
-    #       ['Google','google-oauth2'],
-    #       ['Twitter','twitter']
-    # ]
   end
 
   def link_provider
@@ -30,12 +24,12 @@ class SettingsController < SecuredController
   def unlink_provider
     user = session[:userinfo]
 
-    v2_creds = { client_id: ENV['AUTH0_CLIENT_ID'],
+    creds = { client_id: ENV['AUTH0_CLIENT_ID'],
                  token: user[:credentials][:id_token],
                  api_version: 2,
                  domain: ENV['AUTH0_DOMAIN'] }
 
-    client = Auth0Client.new(v2_creds)
+    client = Auth0Client.new(creds)
     result = client.unlink_users_account(user['uid'], params['unlink_provider'], user_providers[params['unlink_provider']])
     redirect_to '/settings', notice: 'Provider succesfully unlinked.'
   end
