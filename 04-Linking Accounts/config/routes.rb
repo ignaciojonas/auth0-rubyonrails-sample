@@ -1,17 +1,16 @@
+# frozen_string_literal: true
 Rails.application.routes.draw do
-
   get 'settings/show'
 
   get 'dashboard/show'
 
-  get "/" => "home#show"
+  get '/' => 'home#show'
 
-  get "/dashboard" => "dashboard#show"
-  get "/settings" => "settings#show"
+  get '/dashboard' => 'dashboard#show'
+  get '/settings' => 'settings#show'
 
-
-  get "/auth/auth0/callback" => "auth0#callback"
-  get "/auth/failure" => "auth0#failure"
+  get '/auth/auth0/callback' => 'auth0#callback'
+  get '/auth/failure' => 'auth0#failure'
 
   get 'settings/link_provider'
   post 'settings/unlink_provider'
