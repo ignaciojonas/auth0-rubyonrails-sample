@@ -1,14 +1,14 @@
+# frozen_string_literal: true
 Rails.application.routes.draw do
-
   get 'dashboard/show'
 
-  get "/" => "home#show"
+  get '/' => 'home#show'
 
-  get "/dashboard" => "dashboard#show"
-  get "/logout" => "logout#logout"
+  get '/dashboard' => 'dashboard#show'
+  get '/logout' => 'logout#logout'
 
-  get "/auth/auth0/callback" => "auth0#callback"
-  get "/auth/failure" => "auth0#failure"
+  get '/auth/auth0/callback' => 'auth0#callback'
+  get '/auth/failure' => 'auth0#failure'
 
   root 'home#show'
 
