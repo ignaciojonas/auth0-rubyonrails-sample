@@ -9,7 +9,8 @@ function signin() {
 	});
 }
 
-function linkPasswordAccount(connection){
+function linkPasswordAccount(){
+		connection = $("#link_provider").val();
     var opts = {
 			callbackURL: '<%= Rails.application.secrets.auth0_callback_url %>',
       rememberLastLogin: false,
