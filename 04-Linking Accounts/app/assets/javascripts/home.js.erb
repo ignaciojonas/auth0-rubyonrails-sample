@@ -1,0 +1,28 @@
+var lock = new Auth0Lock('<%= Rails.application.secrets.auth0_client_id %>', '<%= Rails.application.secrets.auth0_domain %>');
+function signin() {
+	lock.show({
+	    callbackURL: '<%= Rails.application.secrets.auth0_callback_url %>',
+	    responseType: 'code',
+	    authParams: {
+	    	scope: 'openid name email picture'
+	  	}
+	});
+}
+
+function linkPasswordAccount(){
+		connection = $("#link_provider").val();
+    var opts = {
+			callbackURL: '<%= Rails.application.secrets.auth0_callback_url %>',
+      rememberLastLogin: false,
+      dict: {
+        signin: {
+          title: 'Link another account'
+        }
+      }
+    };
+    if (connection){
+      opts.connections = [connection];
+    }
+    //open lock in signin mode, with the customized options for linking
+    lock.showSignin(opts);
+  }
