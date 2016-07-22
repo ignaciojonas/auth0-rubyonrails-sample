@@ -12,9 +12,13 @@ For that, if you just create a file named .env in the directory and set the valu
 # .env file
 AUTH0_CLIENT_SECRET=myCoolSecret
 AUTH0_CLIENT_ID=myCoolClientId
+AUTH0_MASTER_JWT= apiMasterJWT
 AUTH0_DOMAIN=samples.auth0.com
 AUTH0_CALLBACK_URL=http://localhost:3000/auth/auth0/callback
 ````
+
+You can generate your Master JWT from [here](https://auth0.com/docs/api/management/v2/tokens)
+
 Once you've set those 4 enviroment variables, run `bundle install` and then `rails s`. Now, browse [http://localhost:3000/](http://localhost:3000/)
 
 __Note:__ If you are using Windows, uncomment the `tzinfo-data` gem in the gemfile
