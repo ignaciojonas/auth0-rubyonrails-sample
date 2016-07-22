@@ -17,8 +17,7 @@
         </div>
         <div class="form-group">
           <div class="col-xs-offset-3 col-xs-9">
-            <!--  TODO: selected from select_tag-->
-            <a class="btn btn-success btn-lg" onclick="linkPasswordAccount('github')">Link Accounts</a>
+            <a class="btn btn-success btn-lg" onclick="linkPasswordAccount">Link Accounts</a>
           </div>
         </div>
       <% end %>
@@ -38,7 +37,6 @@
         </div>
         <div class="form-group">
           <div class="col-xs-offset-3 col-xs-9">
-          <!-- <a class="btn btn-danger btn-lg" onclick="unlinkPasswordAccount()">Unlink Accounts</a> -->
             <%= button_tag(type: 'submit', class: "btn btn-danger btn-lg") do %>
               Unlink Accounts
             <% end %>
