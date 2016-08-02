@@ -16,7 +16,7 @@ class Auth0Controller < ApplicationController
 
   def google_authorize
     redirect_to client.authorization_url(
-      ENV['AUTH0_CALLBACK_URL'],
+      Rails.application.secrets.auth0_callback_url,
       connection: 'google-oauth2',
       scope: 'openid'
     ).to_s
@@ -29,7 +29,7 @@ class Auth0Controller < ApplicationController
   private
 
   def google_login
-    client.obtain_user_tokens(params['code'], ENV['AUTH0_CALLBACK_URL'], 'google-oauth2', 'openid')['id_token']
+    client.obtain_user_tokens(params['code'], Rails.application.secrets.auth0_callback_url, 'google-oauth2', 'openid')['id_token']
   end
 
   def login

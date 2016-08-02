@@ -6,10 +6,10 @@ class ApplicationController < ActionController::Base
   attr_reader :client
 
   def client
-    creds = { client_id: ENV['AUTH0_CLIENT_ID'],
-              client_secret: ENV['AUTH0_CLIENT_SECRET'],
+    creds = { client_id: Rails.application.secrets.auth0_client_id,
+              client_secret: Rails.application.secrets.auth0_client_secret,
               api_version: 1,
-              domain: ENV['AUTH0_DOMAIN'] }
+              domain: Rails.application.secrets.auth0_domain  }
 
     @client = Auth0Client.new(creds)
   end
