@@ -12,8 +12,8 @@ For that, if you just create a file named `.env` in the project directory and se
 
 ````bash
 # .env file
-AUTH0_CLIENT_SECRET=myCoolSecret
 AUTH0_CLIENT_ID=myCoolClientId
+AUTH0_CLIENT_SECRET=myCoolSecret
 AUTH0_DOMAIN=samples.auth0.com
 AUTH0_CALLBACK_URL=http://localhost:3000/auth/auth0/callback
 ````
