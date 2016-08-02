@@ -9,8 +9,7 @@ class ApplicationController < ActionController::Base
     creds = { client_id: Rails.application.secrets.auth0_client_id,
               client_secret: Rails.application.secrets.auth0_client_secret,
               api_version: 1,
-              domain: Rails.application.secrets.auth0_domain  }
-
-    @client = Auth0Client.new(creds)
+              domain: Rails.application.secrets.auth0_domain }
+    @client ||= Auth0Client.new(creds)
   end
 end
