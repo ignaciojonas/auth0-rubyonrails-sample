@@ -8,7 +8,7 @@ In order to run the example you need to have ruby installed.
 
 You also need to set the ClientSecret, ClientId, Domain and CallbackURL for your Auth0 app as environment variables with the following names respectively: `AUTH0_CLIENT_SECRET`, `AUTH0_CLIENT_ID`, `AUTH0_DOMAIN` and `AUTH0_CALLBACK_URL`.
 
-For that, if you just create a file named `.env` in the project directory and set the values as follows, the app will just work:
+Set the environment variables in `.env` to match those your Auth0 Client.
 
 ````bash
 # .env file

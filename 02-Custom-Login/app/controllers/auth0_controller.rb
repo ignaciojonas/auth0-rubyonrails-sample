@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class Auth0Controller < ApplicationController
+  # Once the login or login with Google is clicked this method is called.
   def callback
     if params[:user]
       signup if params[:signup]
@@ -14,6 +15,7 @@ class Auth0Controller < ApplicationController
     redirect_to '/', notice: ex.message
   end
 
+  # Used to redirect to auth0 authorization url to login with Google.
   def google_authorize
     redirect_to client.authorization_url(
       Rails.application.secrets.auth0_callback_url,
@@ -22,16 +24,14 @@ class Auth0Controller < ApplicationController
     ).to_s
   end
 
-  def failure
-    @error_msg = request.params['message']
-  end
-
   private
 
+  # Used to get the user token when the user logins using Google.
   def google_login
     client.obtain_user_tokens(params['code'], Rails.application.secrets.auth0_callback_url, 'google-oauth2', 'openid')['id_token']
   end
 
+  # Used to login with usename and password using the Auth0-Ruby SDK.
   def login
     client.login(
       params[:user],
@@ -43,6 +43,7 @@ class Auth0Controller < ApplicationController
     )
   end
 
+  # Used to signup using the Auth0-Ruby SDK.
   def signup
     client.signup(
       params[:user],
