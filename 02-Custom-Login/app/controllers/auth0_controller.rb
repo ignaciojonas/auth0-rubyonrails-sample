@@ -26,12 +26,14 @@ class Auth0Controller < ApplicationController
 
   private
 
-  # Used to get the user token when the user logins using Google.
+  # Gets the user token when logging in using google-oauth2.
+  # @see https://auth0.com/docs/auth-api#!#post--oauth-access_token
+  # @see https://github.com/auth0/ruby-auth0/blob/master/lib/auth0/api/authentication_endpoints.rb
   def google_login
     client.obtain_user_tokens(params['code'], Rails.application.secrets.auth0_callback_url, 'google-oauth2', 'openid')['id_token']
   end
 
-  # Used to login with usename and password using the Auth0-Ruby SDK.
+  # Login with username / password using the Auth0-Ruby SDK.
   def login
     client.login(
       params[:user],
@@ -43,7 +45,9 @@ class Auth0Controller < ApplicationController
     )
   end
 
-  # Used to signup using the Auth0-Ruby SDK.
+  # Signs a new user up using the Auth0-Ruby SDK (username / password).
+  # @see https://auth0.com/docs/auth-api#!#post--dbconnections-signup
+  # @see https://github.com/auth0/ruby-auth0/blob/master/lib/auth0/api/authentication_endpoints.rb
   def signup
     client.signup(
       params[:user],
