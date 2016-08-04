@@ -1,6 +1,8 @@
 # frozen_string_literal: true
-class SettingsController < SecuredController
+class SettingsController < ApplicationController
+  include Secured
   include ClientHelper
+
   attr_accessor :user
 
   def show
@@ -9,6 +11,7 @@ class SettingsController < SecuredController
     @providers = link_providers - @unlink_providers - [user[:provider]]
   end
 
+  # Used to link the current user with other provider.
   def link_provider
     @user = session[:userinfo]
     link_user = session[:linkuserinfo]
@@ -16,6 +19,7 @@ class SettingsController < SecuredController
     redirect_to '/settings', notice: 'Provider succesfully linked.'
   end
 
+  # Used to unlink the current user from a provider.
   def unlink_provider
     @user = session[:userinfo]
     unlink_user_id = unlink_providers[params['unlink_provider']]
@@ -25,11 +29,13 @@ class SettingsController < SecuredController
 
   private
 
+  # Used to get the list of user's providers to unlink
   def unlink_providers
     user_info = ClientHelper.client_user(user).user_info
     Hash[user_info['identities'].collect { |identity| [identity['provider'], identity['user_id']] }]
   end
 
+  # Used to get the list of user's providers to link
   def link_providers
     connections = ClientHelper.client_admin.connections
     connections.map do |connection|
