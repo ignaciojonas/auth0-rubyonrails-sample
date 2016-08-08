@@ -39,7 +39,7 @@ class SettingsController < ApplicationController
   def link_providers
     connections = ClientHelper.client_admin.connections
     connections.map do |connection|
-      connection['strategy'] if connection['enabled_clients'].include?(ENV['AUTH0_CLIENT_ID'])
+      connection['strategy'] if connection['enabled_clients'].include?(Rails.application.secrets.auth0_client_id)
     end.compact
   end
 end

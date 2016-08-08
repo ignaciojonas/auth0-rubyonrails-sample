@@ -27,29 +27,30 @@ __Note:__ If you are using Windows, uncomment the `tzinfo-data` gem in the gemfi
 ## Important Snippets
 
 ### 1. Auth0 Lock Account Linking Setup
+[Home View Javascript Code](/05-linking-Accounts/app/assets/javascripts/home.js.erb)
 ```js
 function linkPasswordAccount(){
 	connection = $("#link_provider").val();
-  var linkOptions = {
+	var linkOptions = {
 		auth: {
 			redirectUrl: '<%= Rails.application.secrets.auth0_callback_url %>',
-    	allowLogin: true
+			allowLogin: true
 		},
-    languageDictionary: {
-    	title: 'Link another account'
-    }
-  };
-  if (connection){
-    linkOptions.allowedConnections = [connection];
-  }
+		languageDictionary: {
+			title: 'Link another account'
+		}
+	};
+	if (connection){
+		linkOptions.allowedConnections = [connection];
+	}
 	var linkLock = new Auth0Lock('<%= Rails.application.secrets.auth0_client_id %>', '<%= Rails.application.secrets.auth0_domain %>', linkOptions);
 
-  //open lock in signin mode, with the customized options for linking
-  linkLock.show();
+	//open lock in signin mode, with the customized options for linking
+	linkLock.show();
 }
 ```
 ### 2. Auth0 Client Helpers
-
+[Auth0 Client Helper Code](/05-linking-Accounts/app/helpers/client_helper.rb)
 ```ruby
 module ClientHelper
   def self.client_user(user)
@@ -81,40 +82,41 @@ end
 ```
 
 ### 3. Settings Controller Methods
+[Settings Controller Code](/05-linking-Accounts/app/controllers/settings_controller.rb)
 
 ```ruby
 def show
-  @user = session[:userinfo]
-  @unlink_providers = unlink_providers.keys - [user[:provider]]
-  @providers = link_providers - @unlink_providers - [user[:provider]]
+	@user = session[:userinfo]
+	@unlink_providers = unlink_providers.keys - [user[:provider]]
+	@providers = link_providers - @unlink_providers - [user[:provider]]
 end
 
 def link_provider
-  @user = session[:userinfo]
-  link_user = session[:linkuserinfo]
-  ClientHelper.client(user).link_user_account(user['uid'], link_with: link_user[:credentials][:id_token])
-  redirect_to '/settings', notice: 'Provider succesfully linked.'
+	@user = session[:userinfo]
+	link_user = session[:linkuserinfo]
+	ClientHelper.client(user).link_user_account(user['uid'], link_with: link_user[:credentials][:id_token])
+	redirect_to '/settings', notice: 'Provider succesfully linked.'
 end
 
 def unlink_provider
-  @user = session[:userinfo]
-  unlink_user_id = unlink_providers[params['unlink_provider']]
-  ClientHelper.client(user).unlink_users_account(user['uid'], params['unlink_provider'], unlink_user_id)
-  redirect_to '/settings', notice: 'Provider succesfully unlinked.'
+	@user = session[:userinfo]
+	unlink_user_id = unlink_providers[params['unlink_provider']]
+	ClientHelper.client(user).unlink_users_account(user['uid'], params['unlink_provider'], unlink_user_id)
+	redirect_to '/settings', notice: 'Provider succesfully unlinked.'
 end
 
 private
 
 def unlink_providers
-  user_info = ClientHelper.client_user(user).user_info
-  Hash[user_info['identities'].collect { |identity| [identity['provider'], identity['user_id']] }]
+	user_info = ClientHelper.client_user(user).user_info
+	Hash[user_info['identities'].collect { |identity| [identity['provider'], identity['user_id']] }]
 end
 
 def link_providers
-  connections = ClientHelper.client_admin.connections
-  connections.map do |connection|
-    connection['strategy'] if connection['enabled_clients'].include?(ENV['AUTH0_CLIENT_ID'])
-  end.compact
+	connections = ClientHelper.client_admin.connections
+	connections.map do |connection|
+		connection['strategy'] if connection['enabled_clients'].include?(Rails.application.secrets.auth0_client_id)
+	end.compact
 end
 ```
 
