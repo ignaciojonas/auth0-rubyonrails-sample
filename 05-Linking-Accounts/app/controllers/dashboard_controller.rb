@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class DashboardController < SecuredController
+class DashboardController < ApplicationController
   include Secured
   include ClientHelper
   def show
