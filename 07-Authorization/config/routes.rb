@@ -1,17 +1,17 @@
+# frozen_string_literal: true
 Rails.application.routes.draw do
-
   get 'unauthorized/show'
 
   get 'admin/show'
 
   get 'dashboard/show'
 
-  get "/" => "home#show"
+  get '/' => 'home#show'
 
-  get "/dashboard" => "dashboard#show"
-  get "/admin" => "admin#show"
-  get "/auth/auth0/callback" => "auth0#callback"
-  get "/auth/failure" => "auth0#failure"
+  get '/dashboard' => 'dashboard#show'
+  get '/admin' => 'admin#show'
+  get '/auth/auth0/callback' => 'auth0#callback'
+  get '/auth/failure' => 'auth0#failure'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
