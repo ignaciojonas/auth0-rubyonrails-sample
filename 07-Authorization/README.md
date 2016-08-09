@@ -26,8 +26,10 @@ __Note:__ If you are using Windows, uncomment the `tzinfo-data` gem in the gemfi
 ## Important Snippets
 
 ### 1. Admin Controller Methods
+[Admin Controller Code](/07-Authorization/app/controllers/admin_controller.rb)
 ```ruby
-class AdminController < SecuredController
+class AdminController < ApplicationController
+  include Secured
   before_action :isAdmin?
 
   def show
@@ -36,15 +38,16 @@ class AdminController < SecuredController
   private
 
   def isAdmin?
-    unless roles.include?('admin')
-      redirect_to unauthorized_show_path
-    end
+    redirect_to unauthorized_show_path unless roles.include?('admin')
   end
 
   def roles
-    session[:userinfo][:extra][:raw_info][:app_metadata][:roles] || []
+    app_metadata ? app_metadata[:roles] : []
   end
 
+  def app_metadata
+    session[:userinfo][:extra][:raw_info][:app_metadata]
+  end
 end
 ```
 ## Used Libraries
