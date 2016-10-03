@@ -15,8 +15,11 @@ Set the environment variables in `.env` to match those your Auth0 Client.
 AUTH0_CLIENT_ID=myCoolClientId
 AUTH0_CLIENT_SECRET=myCoolSecret
 AUTH0_DOMAIN=samples.auth0.com
-AUTH0_CALLBACK_URL=http://localhost:3000/auth/auth0/callback
+AUTH0_CALLBACK_URL=http://localhost:3000/auth/oauth2/callback
+AUTH0_MASTER_JWT=myAuth0MasterJWTToken
 ````
+__Note:__ Remember to use `https` in the callback URL of your Production Environment.
+__Note:__ Remember that you can generate the master JWT token in https://auth0.com/docs/api/management/v2/tokens
 Once you've set those 4 environment variables, run `bundle install` and then `rails s`. Now, browse [http://localhost:3000/](http://localhost:3000/).
 __Note:__ Remember that you need to have `./bin` in your path for `rails s` to work.
 
