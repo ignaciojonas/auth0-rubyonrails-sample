@@ -5,7 +5,7 @@ module LogoutHelper
               client_secret: Rails.application.secrets.auth0_client_secret,
               api_version: 1,
               domain: Rails.application.secrets.auth0_domain }
-    client = Auth0Client.new(creds)
-    client.logout_url(root_url)
+    auth0_client = Auth0Client.new(creds)
+    auth0_client.logout_url(root_url)
   end
 end

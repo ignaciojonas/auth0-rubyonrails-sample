@@ -15,7 +15,7 @@ class SettingsController < ApplicationController
   def link_provider
     @user = session[:userinfo]
     link_user = session[:linkuserinfo]
-    ClientHelper.client(user).link_user_account(user['uid'], link_with: link_user[:credentials][:id_token])
+    ClientHelper.auth0_client(user).link_user_account(user['uid'], link_with: link_user[:credentials][:id_token])
     redirect_to '/settings', notice: 'Provider succesfully linked.'
   end
 
@@ -23,7 +23,7 @@ class SettingsController < ApplicationController
   def unlink_provider
     @user = session[:userinfo]
     unlink_user_id = unlink_providers[params['unlink_provider']]
-    ClientHelper.client(user).unlink_users_account(user['uid'], params['unlink_provider'], unlink_user_id)
+    ClientHelper.auth0_client(user).unlink_users_account(user['uid'], params['unlink_provider'], unlink_user_id)
     redirect_to '/settings', notice: 'Provider succesfully unlinked.'
   end
 
@@ -31,13 +31,13 @@ class SettingsController < ApplicationController
 
   # Used to get the list of user's providers to unlink
   def unlink_providers
-    user_info = ClientHelper.client_user(user).user_info
+    user_info = ClientHelper.auth0_client_user(user).user_info
     Hash[user_info['identities'].collect { |identity| [identity['provider'], identity['user_id']] }]
   end
 
   # Used to get the list of user's providers to link
   def link_providers
-    connections = ClientHelper.client_admin.connections
+    connections = ClientHelper.auth0_client_admin.connections
     connections.map do |connection|
       connection['strategy'] if connection['enabled_clients'].include?(Rails.application.secrets.auth0_client_id)
     end.compact

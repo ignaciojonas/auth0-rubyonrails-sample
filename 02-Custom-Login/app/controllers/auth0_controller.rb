@@ -17,7 +17,7 @@ class Auth0Controller < ApplicationController
 
   # Used to redirect to auth0 authorization url to login with Google.
   def google_authorize
-    redirect_to client.authorization_url(
+    redirect_to auth0_client.authorization_url(
       Rails.application.secrets.auth0_callback_url,
       connection: 'google-oauth2',
       scope: 'openid'
@@ -30,12 +30,12 @@ class Auth0Controller < ApplicationController
   # @see https://auth0.com/docs/auth-api#!#post--oauth-access_token
   # @see https://github.com/auth0/ruby-auth0/blob/master/lib/auth0/api/authentication_endpoints.rb
   def google_login
-    client.obtain_user_tokens(params['code'], Rails.application.secrets.auth0_callback_url, 'google-oauth2', 'openid')['id_token']
+    auth0_client.obtain_user_tokens(params['code'], Rails.application.secrets.auth0_callback_url, 'google-oauth2', 'openid')['id_token']
   end
 
   # Login with username / password using the Auth0-Ruby SDK.
   def login
-    client.login(
+    auth0_client.login(
       params[:user],
       params[:password],
       authParams: {
@@ -49,7 +49,7 @@ class Auth0Controller < ApplicationController
   # @see https://auth0.com/docs/auth-api#!#post--dbconnections-signup
   # @see https://github.com/auth0/ruby-auth0/blob/master/lib/auth0/api/authentication_endpoints.rb
   def signup
-    client.signup(
+    auth0_client.signup(
       params[:user],
       params[:password]
     )
