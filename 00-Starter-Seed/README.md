@@ -15,8 +15,9 @@ Set the environment variables in `.env` to match those your Auth0 Client.
 AUTH0_CLIENT_ID=myCoolClientId
 AUTH0_CLIENT_SECRET=myCoolSecret
 AUTH0_DOMAIN=samples.auth0.com
-AUTH0_CALLBACK_URL=http://localhost:3000/auth/auth0/callback
+AUTH0_CALLBACK_URL=http://localhost:3000/auth/oauth2/callback
 ````
+__Note:__ Remember to use `https` in the callback URL of your Production Environment.
 Once you've set those 4 environment variables, run `bundle install` and then `rails s`. Now, browse [http://localhost:3000/](http://localhost:3000/).
 
 __Note:__ If you are using Windows, uncomment the `tzinfo-data` gem in the gemfile.
